@@ -193,7 +193,12 @@ function setActiveQuestion(question) {
   elements.activeQuestionTitle.textContent = question.question;
 
   const rawHtml = marked.parse(question.answerMarkdown || "No answer available.");
-  elements.answerContent.innerHTML = rawHtml;
+  const safeHtml = DOMPurify.sanitize(rawHtml);
+  elements.answerContent.innerHTML = safeHtml;
+
+  if (window.Prism) {
+    Prism.highlightAllUnder(elements.answerContent);
+  }
 
   const safeSlug = escapeHtml(question.slug);
   elements.sourceLink.href = `https://github.com/sudheerj/javascript-interview-questions/blob/master/README.md#${safeSlug}`;
