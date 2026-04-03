@@ -55,10 +55,19 @@ function getQuestionById(id) {
 
 function applySearch() {
   const term = state.search.trim().toLowerCase();
+  const normalizedNumberTerm = term.replace(/^#/, "");
+  const isNumberSearch = /^\d+$/.test(normalizedNumberTerm);
+
   state.filtered = state.questions.filter((question) => {
     if (!term) {
       return true;
     }
+
+    const matchesNumber = isNumberSearch && String(question.id).includes(normalizedNumberTerm);
+    if (matchesNumber) {
+      return true;
+    }
+
     return `${question.question} ${question.answerMarkdown}`.toLowerCase().includes(term);
   });
 }
