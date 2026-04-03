@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>JavaScript Interview Questions Hub</title>
+    <meta
+      name="description"
+      content="Browse JavaScript interview questions with clean answers, search, and pagination."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#questions">Skip to questions</a>
+    <div class="noise" aria-hidden="true"></div>
+
+    <header class="site-header" id="top">
+      <div class="brand-wrap">
+        <span class="brand-dot" aria-hidden="true"></span>
+        <a class="brand" href="#top">JS Interview Questions</a>
+      </div>
+
+      <nav class="main-nav" aria-label="Primary">
+        <a href="#questions">Questions</a>
+        <a href="#about">About</a>
+        <a href="https://github.com/sudheerj/javascript-interview-questions" target="_blank" rel="noreferrer">GitHub</a>
+      </nav>
+
+      <div class="header-actions">
+        <button id="themeToggle" type="button" class="ghost-btn" aria-label="Toggle theme">Theme</button>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <p class="kicker">Frontend Companion</p>
+        <h1>Learn JavaScript Interview Topics Faster</h1>
+        <p class="subtitle">
+          Read all questions and answers in one beautiful, paginated interface built for focused prep.
+        </p>
+        <div class="hero-metrics" id="heroMetrics">
+          <article>
+            <p class="metric-value" id="totalQuestions">0</p>
+            <p class="metric-label">Total Questions</p>
+          </article>
+          <article>
+            <p class="metric-value" id="currentPageLabel">1</p>
+            <p class="metric-label">Current Page</p>
+          </article>
+          <article>
+            <p class="metric-value" id="resultsLabel">0</p>
+            <p class="metric-label">Showing Results</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="controls" id="questions" aria-label="Question controls">
+        <div class="search-wrap">
+          <label for="searchInput">Search Questions</label>
+          <input id="searchInput" type="search" placeholder="Try: closures, promises, event loop..." autocomplete="off" />
+        </div>
+
+        <div class="control-row">
+          <label for="perPageSelect">Items per page</label>
+          <select id="perPageSelect" aria-label="Items per page">
+            <option value="10">10</option>
+            <option value="20" selected>20</option>
+            <option value="30">30</option>
+            <option value="50">50</option>
+          </select>
+
+          <label class="jump-label" for="jumpInput">Jump to question #</label>
+          <input id="jumpInput" type="number" min="1" step="1" placeholder="e.g. 120" />
+          <button id="jumpBtn" class="ghost-btn" type="button">Go</button>
+        </div>
+
+        <div class="control-row control-row-advanced">
+          <label for="sortSelect">Sort</label>
+          <select id="sortSelect" aria-label="Sort order">
+            <option value="asc" selected>Question # Asc</option>
+            <option value="desc">Question # Desc</option>
+          </select>
+
+          <label class="check-wrap" for="favoritesOnly">
+            <input id="favoritesOnly" type="checkbox" />
+            Favorites only
+          </label>
+          <button id="clearFiltersBtn" class="ghost-btn" type="button">Clear filters</button>
+        </div>
+
+        <p class="hint-line">Shortcuts: <strong>/</strong> search, <strong>J/K</strong> next/previous question, <strong>N/P</strong> next/previous page.</p>
+      </section>
+
+      <section class="qa-layout">
+        <aside class="question-list-panel" aria-label="Question list">
+          <div class="panel-head">
+            <h2>Question List</h2>
+            <p id="listMeta">Loading...</p>
+          </div>
+          <ul id="questionList" class="question-list"></ul>
+
+          <div class="pagination" aria-label="Pagination">
+            <button id="prevPage" type="button">Previous</button>
+            <div id="pageNumbers" class="page-numbers"></div>
+            <button id="nextPage" type="button">Next</button>
+          </div>
+        </aside>
+
+        <article class="answer-panel" aria-live="polite">
+          <div class="answer-head">
+            <p id="activeQuestionNumber" class="answer-num">Question #</p>
+            <h2 id="activeQuestionTitle">Select a question</h2>
+            <div class="answer-actions">
+              <button id="favoriteActiveBtn" class="ghost-btn" type="button">Favorite</button>
+              <button id="copyLinkBtn" class="ghost-btn" type="button">Copy link</button>
+              <button id="copyAnswerBtn" class="ghost-btn" type="button">Copy answer</button>
+              <button id="randomQuestionBtn" class="ghost-btn" type="button">Random</button>
+            </div>
+          </div>
+          <div id="answerContent" class="answer-content">
+            <p>Choose a question from the left panel to view the answer.</p>
+          </div>
+          <p class="source-link-wrap">
+            Source:
+            <a id="sourceLink" href="https://github.com/sudheerj/javascript-interview-questions/blob/master/README.md" target="_blank" rel="noreferrer">Original README</a>
+          </p>
+        </article>
+      </section>
+
+      <section id="about" class="about">
+        <h2>About This UI</h2>
+        <p>
+          This site is generated from the repository README so question content remains consistent with the source.
+          It supports quick scanning, keyboard-friendly reading, and paginated navigation for long interview prep sessions.
+        </p>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <p>Built for GitHub Pages. Data source: repository README.</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="./app.js" type="module"></script>
+    <button id="backToTop" class="back-to-top" type="button" aria-label="Back to top">Top</button>
+    <div id="toast" class="toast" aria-live="polite"></div>
+  </body>
+</html>
